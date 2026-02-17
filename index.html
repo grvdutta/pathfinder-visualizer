@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path Finder Visualizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h1>Path<span>Finder</span></h1>
+        </div>
+        <div class="controls">
+            <div class="mode-controls">
+                <button id="drawWallBtn" class="btn mode-btn active">Draw Wall</button>
+                <button id="setStartBtn" class="btn mode-btn">Set Start</button>
+                <button id="setEndBtn" class="btn mode-btn">Set Target</button>
+            </div>
+            <div class="action-controls">
+                <button id="runBFSBtn" class="btn primary">Run BFS</button>
+                <button id="runDFSBtn" class="btn primary">Run DFS</button>
+                <button id="clearBoardBtn" class="btn secondary">Clear Board</button>
+                <button id="clearPathBtn" class="btn secondary">Clear Path</button>
+            </div>
+            <div class="legend">
+                <div class="item"><span class="icon start-node"></span> Start</div>
+                <div class="item"><span class="icon end-node"></span> Target</div>
+                <div class="item"><span class="icon wall-node"></span> Wall</div>
+                <div class="item"><span class="icon visited-node"></span> Visited</div>
+                <div class="item"><span class="icon path-node"></span> Path</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="grid-container" class="grid-container"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

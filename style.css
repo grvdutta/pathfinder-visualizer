@@ -1,0 +1,255 @@
+:root {
+    --bg-color: #0f172a;
+    --grid-bg: #1e293b;
+    --border-color: #334155;
+    --primary-color: #3b82f6;
+    --accent-color: #10b981;
+    --target-color: #ef4444;
+    --wall-color: #0f172a;
+    --visited-color: #6366f1;
+    --path-color: #f59e0b;
+    --text-color: #f8fafc;
+    --cell-size: 25px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+header {
+    height: 80px;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(30, 41, 59, 0.95);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 {
+    font-weight: 600;
+    letter-spacing: -1px;
+    font-size: 1.5rem;
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+.controls {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.mode-controls,
+.action-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+/* Mode Buttons */
+.btn.mode-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: #94a3b8;
+}
+
+.btn.mode-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.btn.mode-btn.active {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Action Buttons */
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.4);
+}
+
+.btn.primary:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(59, 130, 246, 0.5);
+}
+
+.btn.secondary {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.btn.secondary:hover {
+    background-color: var(--border-color);
+}
+
+.legend {
+    display: flex;
+    gap: 1rem;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-color);
+}
+
+.legend .item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.legend .icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
+
+.start-node {
+    background-color: var(--accent-color);
+}
+
+.end-node {
+    background-color: var(--target-color);
+}
+
+.wall-node {
+    background-color: var(--wall-color);
+    border: 1px solid var(--border-color);
+}
+
+.visited-node {
+    background-color: var(--visited-color);
+    opacity: 0.7;
+}
+
+.path-node {
+    background-color: var(--path-color);
+}
+
+main {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-container {
+    display: grid;
+    background-color: var(--grid-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.node {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid rgba(51, 65, 85, 0.3);
+    /* No transition for background to make drawing snappy */
+}
+
+/* Node States */
+.node-start {
+    background-color: var(--accent-color);
+    transform: scale(0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-color);
+    transition: all 0.2s ease;
+}
+
+.node-end {
+    background-color: var(--target-color);
+    transform: scale(0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--target-color);
+    transition: all 0.2s ease;
+}
+
+.node-wall {
+    background-color: var(--wall-color);
+    border-color: var(--border-color);
+    animation: popIn 0.2s ease;
+}
+
+.node-visited {
+    animation: visitNode 0.5s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+.node-path {
+    animation: shortestPath 0.5s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes visitNode {
+    0% {
+        transform: scale(0.3);
+        background-color: #312e81;
+        border-radius: 50%;
+    }
+
+    50% {
+        background-color: #4f46e5;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: var(--visited-color);
+    }
+}
+
+@keyframes shortestPath {
+    0% {
+        transform: scale(0.6);
+        background-color: #fcd34d;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: var(--path-color);
+        box-shadow: 0 0 5px var(--path-color);
+    }
+}
